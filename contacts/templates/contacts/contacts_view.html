@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Book - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert">{{message}}</div>
+{% else %}
+<div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="navbar bg-light">
+    <form class="container-fluid" action="{% url 'search_contact' %}" method="get">
+        <div class="input-group">
+            <button class="btn btn-secondary" type="submit" id="basic-addon1">SEARCH</button>
+            <input class="form-control" type="text" name="s" placeholder="username, phone, email">
+            <input type="submit" hidden>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="navbar-brand ml-3" href="{% url 'contact_list' %}"><i class="fa fa-bars"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div data-bs-spy="scroll" style="overflow: scroll;height: 550px;" data-bs-root-margin="0px 0px -10%"
+     data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="1">
+    <form id="contactForm" class="container-fluid" action="{% url 'contact_list' %}" method="post">
+        {% csrf_token %}
+        {% if contacts_data %}
+        <div class="list-group">
+            {% for contact in contacts_data %}
+            <div class="list-group-item list-group-item-action" onmouseout="normal(this)">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="contact" value="{{contact.pk}}"
+                               id="flexCheckIndeterminate">
+                        <a style="color: black" href="{{ contact.get_absolute_url }}"><h5 class="mb-1">
+                            {{contact.name}}</h5></a>
+
+                        <small>Days to birthday: {{contact.days_to_birthday}}</small>
+                    </div>
+                    <small>{{contact.birthday|timesince}}</small>
+                    <div>
+                        <a class="btn btn-light ml-3" href="{{ contact.get_absolute_url }}">✏️</a>
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{contact.id}}">
+                            📑
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal{{contact.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Contact info</h5>
+                        </div>
+                        <div class="modal-body">
+                            Contact name: {{contact.name}} <br>
+                            Contact address: {{contact.address}} <br>
+                            Contact birthday: {{contact.birthday}} <br>
+                            Contact phone: {{contact.phone}} <br>
+                            Contact phone: {{contact.phone_one}} <br>
+                            Contact email: {{contact.email}} <p><a href="mailto:{{contact.email}}">Send email</a></p>
+                            <br>
+                            Contact email: {{contact.email_one}} <p><a href="mailto:{{contact.email}}">Send email</a>
+                        </p><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+
+</div>
+
+
+<div class="d-grid d-md-flex justify-content-md-end mb-2">
+    <button type="submit" form="contactForm" class="btn btn-danger btn-block mt-3" id="submit" disabled><i
+            class="fa fa-trash"></i> DELETE
+    </button>
+
+
+    {% else %}
+    <img src="https://cdn.dribbble.com/users/415089/screenshots/14359077/media/12e60e1d4f5556b56310908bc9e6c2ea.jpg?compress=1&resize=768x576&vertical=top"
+         height="85%" width="85%" class="rounded mx-auto d-block" alt="not-search-result">
+    {% endif %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}

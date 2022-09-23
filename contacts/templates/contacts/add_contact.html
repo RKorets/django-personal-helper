@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Create New Contact - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert">{{message}}</div>
+{% else %}
+<div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class="scrollspy-example bg-light p-3 rounded-2">
+<form action="{% url 'create_contact' %}" method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Contact name:<span style="color: red">*</span></label>
+        {{form.name}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Address:</label>
+        {{form.address}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Birthday:</label>
+        {{form.birthday}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone:<span style="color: red">*</span></label>
+        <div class="d-grid d-md-flex justify-content-md-end mb-2">
+            <button class="btn btn-secondary" id="show-b-p" form="empty" onclick="showPhone()" role="button"
+                    data-bs-toggle="button">+
+            </button>
+        </div>
+        {{form.phone}}
+    </div>
+
+    <div class="mb-3" id="phone-1" style="display: none;">
+        <label class="form-label">Phone:</label>
+        {{form.phone_one}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">E-mail:</label>
+        <div class="d-grid d-md-flex justify-content-md-end mb-2">
+            <button class="btn btn-secondary" id="show-b-e" form="empty" onclick="showEmail()">+</button>
+        </div>
+        {{form.email}}
+    </div>
+
+    <div class="mb-3" id="email-1" style="display: none;">
+        <label class="form-label">E-mail:</label>
+        {{form.email_one}}
+    </div>
+    <button type="submit" class="btn btn-dark btn-block mt-3">ADD CONTACT</button>
+</form>
+  </div>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}

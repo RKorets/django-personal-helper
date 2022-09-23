@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+SignIN - {{ block.super }}
+{% endblock %}
+
+{% block start %}
+
+<form method="post">
+    <div class="container mt-3">
+        <div style="margin: 10%;">
+            <div class="card d-grid gap-2 col-6 mt-2 mx-auto" style="width: 28rem;">
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tag == error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                <h2 class="text-center mt-2">Login</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-dark mb-3">Login</button>
+            <p style="text-align: center">First here? <a href="{% url 'register' %}">Registration</a></p>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

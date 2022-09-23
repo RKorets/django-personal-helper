@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+News - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert" xmlns="http://www.w3.org/1999/html">{{message}}</div>
+{% else %}
+<div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div data-bs-spy="scroll" style="overflow: scroll;height: 550px" data-bs-root-margin="0px 0px -10%"
+     data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="1">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Crypto Currency 💰</h5>
+            <p class="card-text">Always up-to-date crypto exchange rate.</p>
+            <a href="{% url 'crypto_news' %}" class="btn btn-dark">Go!</a>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Special sport events ⚽️</h5>
+            <p class="card-text">World sports events will not let you sit in one place.</p>
+            <a href="#" class="btn btn-dark">Go!</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">World news 🌐</h5>
+            <p class="card-text">Be aware of what's happening.</p>
+            <a href="#" class="btn btn-dark">Go!</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'img/helper.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>HTTP 404 Not Found</title>
+    <div class="container mt-3">
+    <div class="card text-center">
+  <div class="card-header mt-3">
+
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">HTTP 404 Not Found</h5>
+    <p class="card-text">Sorry but this page not found, please try again</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Go Home page</a>
+  </div>
+  <div class="card-footer text-muted">
+  </div>
+    </div>
+</div>
+</head>
+<body>
+<img src="{% static 'img/404.jpeg' %}"  alt="404 page">
+</body>
+</html>

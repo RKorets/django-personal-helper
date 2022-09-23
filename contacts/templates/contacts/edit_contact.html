@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Edit contact - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="scrollspy-example bg-light p-3 rounded-2">
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Contact name</label>
+        {{form.name}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Address</label>
+        {{form.address}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Birthday</label>
+        {{form.birthday}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone<span style="color: red">*</span></label>
+        {{form.phone}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        {{form.phone_one}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        {{form.email}}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        {{form.email_one}}
+    </div>
+
+    <button type="submit" class="btn btn-dark btn-block mt-3"><i class="fa fa-folder"></i> SAVE</button>
+    <input type="hidden" id="b-delete" name='b-delete' value="empty">
+    <button type="submit" class="btn btn-danger btn-block mt-3" onclick="func()"><i class="fa fa-trash"></i> DELETE
+    </button>
+</form>
+</div>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}

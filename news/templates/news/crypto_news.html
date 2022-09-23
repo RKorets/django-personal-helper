@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}
+News - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert" xmlns="http://www.w3.org/1999/html">{{message}}</div>
+{% else %}
+<div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div data-bs-spy="scroll" style="overflow: scroll;height: 550px" data-bs-root-margin="0px 0px -10%"
+     data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="1">
+    <h1 class="display-4">Crypto Currency 💰</h1>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Buy $</th>
+            <th scope="col">Sell $</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>BTC</td>
+            <td>{{ btc_usd.buy }}</td>
+            <td>{{ btc_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>ETH</td>
+            <td>{{ eth_usd.buy }}</td>
+            <td>{{ eth_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>USDT</td>
+            <td>{{ usdt_usd.buy }}</td>
+            <td>{{ usdt_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td>BUSD</td>
+            <td>{{ busd_usd.buy }}</td>
+            <td>{{ busd_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td>LTC</td>
+            <td>{{ ltc_usd.buy }}</td>
+            <td>{{ ltc_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">6</th>
+            <td>DASH</td>
+            <td>{{ dash_usd.buy }}</td>
+            <td>{{ dash_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">7</th>
+            <td>XRP</td>
+            <td>{{ xrp_usd.buy }}</td>
+            <td>{{ xrp_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">8</th>
+            <td>ZEC</td>
+            <td>{{ zec_usd.buy }}</td>
+            <td>{{ zec_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">9</th>
+            <td>SHIB</td>
+            <td>{{ shib_usd.buy }}</td>
+            <td>{{ shib_usd.sell }}</td>
+        </tr>
+        <tr>
+            <th scope="row">10</th>
+            <td>TRX</td>
+            <td>{{ trx_usd.buy }}</td>
+            <td>{{ trx_usd.sell }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

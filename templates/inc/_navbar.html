@@ -1,0 +1,148 @@
+{% if user.is_authenticated %}
+<nav id="navbar" class="navbar navbar-expand-lg ">
+
+    <div class="ml-10 collapse navbar-collapse ml-10" id="navbarSupportedContent">
+        <a class="navbar-brand ml-3" href="{% url 'home' %}"><b>PH by Team #2 🤙🏽</b></a>
+    </div>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+
+        <button class="btn mr-2">🌗</button>
+
+        </label>
+        <div class="dropdown mr-3">
+        <button id="btn-profile" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            👤 {{ user.username }}
+         </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item"  href="{% url 'profile' pk=user.pk %}">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+        </div>
+    </nav>
+</nav>
+    <style>
+
+body {
+  --text-color: lightgray;
+  --bkg-color: #fff;
+}
+
+#navbar {
+  --text-color: black;
+  --bkg-color: 	#D8D8D8;
+}
+
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: lightgray;
+}
+
+#navbar.dark-theme {
+  --text-color: lightgray;
+  --bkg-color: gray;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* defaults to dark theme */
+  #navbar {
+  --text-color: black;
+  --bkg-color: 	#C8C8C8;
+  }
+  body {
+    --text-color: #eee;
+    --bkg-color: lightgray;
+  }
+
+  body.light-theme {
+    --text-color: lightgray;
+    --bkg-color: white;
+  }
+  #navbar.light-theme {
+  --text-color: black;
+  --bkg-color: 	gray;
+}
+
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--bkg-color);
+}
+#navbar {
+  background: var(--bkg-color);
+}
+</style>
+    <script>
+    const btn = document.querySelector(".btn");
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+const currentTheme = localStorage.getItem("theme");
+if (currentTheme == "dark") {
+  document.body.classList.toggle("dark-theme");
+} else if (currentTheme == "light") {
+  document.body.classList.toggle("light-theme");
+}
+
+btn.addEventListener("click", function () {
+  if (prefersDarkScheme.matches) {
+    document.body.classList.toggle("light-theme");
+    var theme = document.body.classList.contains("light-theme")
+      ? "light"
+      : "dark";
+  } else {
+    document.body.classList.toggle("dark-theme");
+    var theme = document.body.classList.contains("dark-theme")
+      ? "dark"
+      : "light";
+  }
+  localStorage.setItem("theme", theme);
+});
+
+(function() {
+  // variable to store our current state
+  var cbstate;
+
+  // bind to the onload event
+  window.addEventListener('load', function() {
+    // Get the current state from localstorage
+    // State is stored as a JSON string
+    cbstate = JSON.parse(localStorage['CBState'] || '{}');
+
+    // Loop through state array and restore checked
+    // state for matching elements
+    for(var i in cbstate) {
+      var el = document.querySelector('input[name="' + i + '"]');
+      if (el) el.checked = true;
+    }
+
+    // Get all checkboxes that you want to monitor state for
+    var cb = document.getElementsByClassName('btn-toggle');
+
+    // Loop through results and ...
+    for(var i = 0; i < cb.length; i++) {
+
+      //bind click event handler
+      cb[i].addEventListener('click', function(evt) {
+        // If checkboxe is checked then save to state
+        if (this.checked) {
+          cbstate[this.name] = true;
+        }
+
+    // Else remove from state
+        else if (cbstate[this.name]) {
+          delete cbstate[this.name];
+        }
+
+    // Persist state
+        localStorage.CBState = JSON.stringify(cbstate);
+      });
+    }
+  });
+})();
+    </script>
+ {% endif %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Files - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error'%}
+<div class="alert alert-danger" role="alert" xmlns="http://www.w3.org/1999/html">{{message}}</div>
+{% else %}
+<div class="alert alert-{{ message.tags }}" role="alert">{{message}}</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="navbar bg-light">
+    <form class="container-fluid" action="{% url 'search_file' %}" method="get">
+        <div class="input-group">
+            <button class="btn btn-secondary" type="submit" id="basic-addon1">SEARCH</button>
+            <input class="form-control" type="text" name="q" placeholder="title file">
+            <input type="submit" hidden>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                 <a class="navbar-brand ml-3" href="{% url 'files' %}"><i class="fa fa-bars"></i></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div data-bs-spy="scroll" style="overflow: scroll;height: 550px" data-bs-root-margin="0px 0px -10%"
+     data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="1">
+    <form id="contactForm" class="container-fluid" action="{% url 'files' %}" method="post">
+        {% csrf_token %}
+    <ul class="nav nav-pills nav-fill justify-content-center">
+        <li class="nav-item">
+            <a class="mr-1 nav-link active btn-dark" href="{% url 'image_files' %}">Images</a>
+        </li>
+        <li class="nav-item">
+            <a class="mr-1 nav-link active ml-1 btn-dark" href="{% url 'pdf_files' %}">PDF</a>
+        </li>
+        <li class="nav-item">
+            <a class="ml-2 nav-link active btn-dark" href="{% url 'docs_files' %}">Docs</a>
+        </li>
+    </ul>
+    {% if files_data %}
+    <div class="list-group">
+        {% for file in files_data %}
+        <div class="card mt-3 mb-3">
+            <div class="card-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="form-check">
+                            <input class="form-check-input mt-3 " type="checkbox" name="file" value="{{file.pk}}"
+                                   id="flexCheckIndeterminate">
+                            <a class="nav-link" href="/media/{{ file.uploadfile }}" class="card-title">{{ file.title }}</a>
+                        </div>
+                    </div>
+                    <nav class="nav nav-pills flex-column flex-sm-row">
+                        <a class="mr-3 flex-sm-fill text-sm-center nav-link active btn-dark"
+                           href="{% url 'download_file' file.pk %}">Download</a>
+                        <a class="flex-sm-fill text-sm-center nav-link active btn-danger" href="{% url 'delete_file' file.pk%}">Delete</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-footer text-muted">
+                {{ file.created_at|date:"Y-m-d H:i" }}
+            </div>
+        </div>
+        {% endfor %}
+    </div></form>
+
+
+</div>
+
+<div class="d-grid d-md-flex justify-content-md-end mb-2">
+    <button type="submit" form="contactForm" class="btn btn-danger btn-block mt-3" id="submit" disabled><i
+            class="fa fa-trash"></i> DELETE
+    </button>
+
+
+    {% else %}
+    <img src="https://cdn.dribbble.com/users/415089/screenshots/14359077/media/12e60e1d4f5556b56310908bc9e6c2ea.jpg?compress=1&resize=768x576&vertical=top"
+         height="85%" width="85%" class="rounded mx-auto d-block" alt="not-search-result">
+    {% endif %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+{% endblock %}
