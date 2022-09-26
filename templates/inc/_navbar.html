@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if user.is_authenticated %}
 <nav id="navbar" class="navbar navbar-expand-lg ">
 
@@ -6,17 +7,36 @@
     </div>
     <nav class="nav nav-pills flex-column flex-sm-row">
 
-        <button class="btn mr-2">🌗</button>
+        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    <input name="next" type="hidden" value="{{ redirect_to }}">
+{#    <select name="language">#}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% translate 'language: ' %}
+        {% for language in languages %}
+            <button class="btn mr-1 mt-1" name="language" type="submit" value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} disabled{% endif %}>
+            {% if language.code == 'uk' %}🇺🇦{% else %}🇺🇸{% endif %}
+            </button>
+{#            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>#}
+{#                {{ language.name_local }} ({{ language.code }})#}
+{#            </option>#}
+        {% endfor %}
+{#    </select>#}
+{#    <input type="submit" value="Go">#}
+</form>
 
-        </label>
+        <button class="btn mr-2 change">🌗</button>
+
+
         <div class="dropdown mr-3">
         <button id="btn-profile" class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             👤 {{ user.username }}
          </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item"  href="{% url 'profile' pk=user.pk %}">Profile</a></li>
+                <li><a class="dropdown-item"  href="{% url 'profile' pk=user.pk %}">{% translate 'Profile' %}</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate 'Logout' %}</a></li>
               </ul>
         </div>
     </nav>
@@ -78,7 +98,7 @@ body {
 }
 </style>
     <script>
-    const btn = document.querySelector(".btn");
+    const btn = document.querySelector(".change");
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 const currentTheme = localStorage.getItem("theme");

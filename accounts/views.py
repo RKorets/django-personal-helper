@@ -12,9 +12,25 @@ from django.contrib.auth.models import User
 from django.contrib.auth import update_session_auth_hash
 import os
 
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language, activate, gettext
 
 # from django.core.mail import send_mail
 
+
+def test(request):
+    trans = translate(language='fr')
+    return render(request, 'registration/test.html', {'trans': trans})
+
+
+def translate(language):
+    cur_language = get_language()
+    try:
+        activate(language)
+        text = gettext('hello')
+    finally:
+        activate(cur_language)
+    return text
 
 def home(request):
     if request.user.is_authenticated:

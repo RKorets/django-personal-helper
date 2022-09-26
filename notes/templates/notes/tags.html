@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
 Files - {{ block.super }}
 {% endblock %}
@@ -20,7 +20,7 @@ Files - {{ block.super }}
 <div class="navbar bg-light">
     <form class="container-fluid" action="{% url 'search_tag' %}" method="get">
         <div class="input-group">
-            <button class="btn btn-secondary" type="submit" id="basic-addon1">SEARCH</button>
+            <button class="btn btn-secondary" type="submit" id="basic-addon1">{% translate 'SEARCH' %}</button>
             <input class="form-control" type="text" name="q" placeholder="tag">
             <input type="submit" hidden>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -45,7 +45,7 @@ Files - {{ block.super }}
                     </div>
                     <nav class="nav nav-pills flex-column flex-sm-row">
                         <a class="flex-sm-fill text-sm-center nav-link active"
-                           href="{% url 'delete_tag' tag.pk%}">Delete</a>
+                           href="{% url 'delete_tag' tag.pk%}">{% translate 'Delete' %}</a>
                     </nav>
                 </div>
             </div>

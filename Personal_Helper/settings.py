@@ -25,12 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-3fivxq+4h7q#)%3wz$m2znp3wi2*t(v7!z^gy6w8lm1sxz1cp*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')  # Use False for show 404 page
+# DEBUG = env('DEBUG')  # Use False for show 404 page
+DEBUG = True  # Use False for show 404 page
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')  # Use empty list for show 404 page - ['127.0.0.1']
+# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')  # Use empty list for show 404 page - ['127.0.0.1']
+ALLOWED_HOSTS = []  # Use empty list for show 404 page - ['127.0.0.1']
 
 # Application definition
 
@@ -52,11 +55,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'contacts.middleware.middleware.CustomMiddleware',
+    'contacts.middleware.middleware.CountRequestsMiddleware',
 ]
 
 ROOT_URLCONF = 'Personal_Helper.urls'
@@ -83,10 +89,15 @@ WSGI_APPLICATION = 'Personal_Helper.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': env.db()
+# }
 DATABASES = {
-    'default': env.db()
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -108,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Helsinki'
 
@@ -139,3 +150,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CAPTCHA_BACKGROUND_COLOR = 'blue'
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('uk', _('Ukrainian')),
+)
+
+LOCALE_PATHS = os.path.join(BASE_DIR, 'locale/'),

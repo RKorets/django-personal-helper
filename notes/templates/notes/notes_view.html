@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
 Notes Book - {{ block.super }}
 {% endblock %}
@@ -20,7 +20,7 @@ Notes Book - {{ block.super }}
 <div class="navbar bg-light">
     <form class="container-fluid" action="{% url 'search_notes' %}" method="get">
         <div class="input-group">
-            <button class="btn btn-secondary" type="submit" id="basic-addon1">SEARCH</button>
+            <button class="btn btn-secondary" type="submit" id="basic-addon1">{% translate 'SEARCH' %}</button>
             <input class="form-control" type="text" name="a" placeholder="notename, description, tags">
             <input type="submit" hidden>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -51,13 +51,13 @@ Notes Book - {{ block.super }}
                             <a class="navbar-brand ml-3" href="{{ note.get_absolute_url }}">✏️</a>
                             <button type="button" class="btn btn-dark" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal{{note.id}}">
-                                Read more
+                                {% translate 'Read more' %}
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    Tags: {{note.tags.all|join:" "}}
+                    {% translate 'Tags' %}: {{note.tags.all|join:" "}}
                 </div>
             </div>
             <div class="modal fade" id="exampleModal{{note.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -69,13 +69,13 @@ Notes Book - {{ block.super }}
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Note name: {{note.name}} <br>
-                            Note description: {{note.text}} <br>
-                            Note tags: {{note.tags.all|join:", "}} <br>
+                            {% translate 'Note name' %}: {{note.name}} <br>
+                            {% translate 'Note description' %}: {{note.text}} <br>
+                            {% translate 'Note tags' %}: {{note.tags.all|join:", "}} <br>
                             </p><br>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% translate 'Close' %}</button>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ Notes Book - {{ block.super }}
 
 <div class="d-grid d-md-flex justify-content-md-end mb-2">
     <button type="submit" form="noteForm" class="btn btn-danger btn-block mt-3" id="submit" disabled><i
-            class="fa fa-trash"></i> DELETE
+            class="fa fa-trash"></i> {% translate 'DELETE' %}
     </button>
 
 

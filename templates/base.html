@@ -3,6 +3,7 @@
 {% load notes_count %}
 {% load files_count %}
 {% load tags_count %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,21 +28,21 @@
         <div class="col-md-3 mt-3">
 
             <a href="{% url 'news' %}" class="list-group-item list-group-item-action" onmouseover="activeNews(this)"
-               onmouseout="normalNews(this)">📰 News</a>
+               onmouseout="normalNews(this)">📰 {% translate 'News' %}</a>
             <div class="dropright">
                 <button type="button" id="contacts"
                         class="list-group-item list-group-item-action dropdown-toggle"
                         data-bs-toggle="dropdown" aria-expanded="false" onmouseover="activeNav(this)"
                         onmouseout="normalNav(this)">
-                    👥 Contacts
+                    👥 {% translate 'Contacts' %}
                 </button>
                 <ul class="dropdown-menu">
                     <li>
                         <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center dropstart-menu"
-                           href="{% url 'contact_list' %}">Contact book <span class="badge bg-info rounded-pill">{% count_contact %}</span></a>
+                           href="{% url 'contact_list' %}">{% translate 'Contact book' %}<span class="badge bg-info rounded-pill">{% count_contact %}</span></a>
                     </li>
                     <li><a class="list-group-item list-group-item-action"
-                           href="{% url 'create_contact' %}">Create new contact</a></li>
+                           href="{% url 'create_contact' %}">{% translate 'Create new contact' %}</a></li>
                 </ul>
             </div>
 
@@ -50,19 +51,19 @@
                 <button type="button" id="notes" class="list-group-item list-group-item-action dropdown-toggle"
                         data-bs-toggle="dropdown" aria-expanded="false" onmouseover="activeNav(this)"
                         onmouseout="normalNav(this)">
-                    📒 Notes
+                    📒 {% translate 'Notes' %}
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'notes_list' %}">Notes book <span class="badge bg-info rounded-pill">{% count_notes %}</span></a>
+                           href="{% url 'notes_list' %}">{% translate 'Notes book' %}<span class="badge bg-info rounded-pill">{% count_notes %}</span></a>
                     </li>
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'tags' %}">Tags <span class="badge bg-info rounded-pill">{% count_tags %}</span></a>
+                           href="{% url 'tags' %}">{% translate 'Tags' %}<span class="badge bg-info rounded-pill">{% count_tags %}</span></a>
                     </li>
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'create_note' %}">Create new note</a></li>
+                           href="{% url 'create_note' %}">{% translate 'Create new note' %}</a></li>
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'create_tag' %}">Create new tag</a></li>
+                           href="{% url 'create_tag' %}">{% translate 'Create new tag' %}</a></li>
                 </ul>
             </div>
 
@@ -70,14 +71,14 @@
                 <button type="button" id="files" class="list-group-item list-group-item-action dropdown-toggle"
                         data-bs-toggle="dropdown" aria-expanded="false" onmouseover="activeNav(this)"
                         onmouseout="normalNav(this)">
-                    📁 Files
+                    📁 {% translate 'Files' %}
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'files' %}">Files <span
+                           href="{% url 'files' %}">{% translate 'Files' %} <span
                             class="badge bg-info rounded-pill">{% count_files %}</span></a></li>
                     <li><a class="list-group-item list-group-item-action dropstart-menu"
-                           href="{% url 'upload_file' %}">Add new file</a></li>
+                           href="{% url 'upload_file' %}">{% translate 'Add new file' %}</a></li>
                 </ul>
             </div>
             {% include 'inc/_notification.html' %}

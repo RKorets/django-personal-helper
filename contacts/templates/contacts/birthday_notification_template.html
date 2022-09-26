@@ -1,18 +1,19 @@
+{% load i18n %}
  <div class="accordion mt-4" id="accordionPanelsStayOpenExample">
   <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-        Notification
+        {% translate 'Notification' %}
       </button>
     </h2>
     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
       <div class="accordion-body">
           {% if  birthdays %}
       {% for contact in birthdays %}
-        <strong>Coming soon birthday</strong><br>Contact: {{ contact.name }}<br>days to birthday: {{ contact.days_to_birthday }}
+        <strong>{% translate 'Coming soon birthday' %}</strong><br>{% translate 'Contact' %}: {{ contact.name }}<br>{% translate 'days to birthday' %}: {{ contact.days_to_birthday }}
           {% endfor %}
   {% else %}
-              <strong>Coming soon birthday</strong><br>The next 7 days there are no birthday parties
+              <strong>{% translate 'Coming soon birthday' %}</strong><br>{% translate 'The next 7 days there are no birthday parties' %}
       {% endif %}
       </div>
     </div>

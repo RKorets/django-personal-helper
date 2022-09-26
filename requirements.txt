@@ -2,4 +2,3 @@ django
 django-simple-captcha
 requests
 psycopg2
-django-environ

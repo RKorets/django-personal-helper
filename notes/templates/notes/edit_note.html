@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block title %}
-Edit contact - {{ block.super }}
+{% translate 'Edit contact' %} - {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -25,9 +25,9 @@ Edit contact - {{ block.super }}
         {{form.tags}} 
     </div>
 
-    <button type="submit" class="btn btn-dark btn-block mt-3"><i class="fa fa-folder"></i> SAVE</button>
+    <button type="submit" class="btn btn-dark btn-block mt-3"><i class="fa fa-folder"></i>{% translate 'SAVE' %}</button>
     <input type="hidden" id="b-delete" name='b-delete' value="empty">
-    <button type="submit" class="btn btn-danger btn-block mt-3" onclick="func()"><i class="fa fa-trash"></i> DELETE
+    <button type="submit" class="btn btn-danger btn-block mt-3" onclick="func()"><i class="fa fa-trash"></i>{% translate 'DELETE' %}
     </button>
 </form>
 </div>
